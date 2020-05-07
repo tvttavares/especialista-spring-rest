@@ -21,12 +21,12 @@ public class CozinhaController {
 
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
-
+	
 	@GetMapping
 	public List<Cozinha> listar() {
 		return cozinhaRepository.listar();
 	}
-
+	
 	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
 	public CozinhasXmlWrapper listarXml() {
 		return new CozinhasXmlWrapper(cozinhaRepository.listar());
@@ -35,13 +35,13 @@ public class CozinhaController {
 	@GetMapping("/{cozinhaId}")
 	public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {
 		Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
-
+		
 		if (cozinha != null) {
 			return ResponseEntity.ok(cozinha);
 		}
-
+		
 //		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		return ResponseEntity.notFound().build();
 	}
-
+	
 }
