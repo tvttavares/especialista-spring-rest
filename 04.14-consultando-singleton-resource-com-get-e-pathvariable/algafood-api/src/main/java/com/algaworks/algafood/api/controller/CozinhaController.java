@@ -17,15 +17,15 @@ public class CozinhaController {
 
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
-
+	
 	@GetMapping
 	public List<Cozinha> listar() {
 		return cozinhaRepository.listar();
 	}
-
+	
 	@GetMapping("/{cozinhaId}")
 	public Cozinha buscar(@PathVariable Long cozinhaId) {
 		return cozinhaRepository.buscar(cozinhaId);
 	}
-
+	
 }
