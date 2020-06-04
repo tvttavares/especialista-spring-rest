@@ -22,33 +22,49 @@ public class CadastroCozinhaIT {
 
 	@LocalServerPort
 	private int port;
-
+	
 	@Autowired
 	private Flyway flyway;
-
+	
 	@Before
 	public void setUp() {
 		RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 		RestAssured.port = port;
 		RestAssured.basePath = "/cozinhas";
-
+		
 		flyway.migrate();
 	}
-
+	
 	@Test
 	public void deveRetornarStatus200_QuandoConsultarCozinhas() {
-		given().accept(ContentType.JSON).when().get().then().statusCode(HttpStatus.OK.value());
+		given()
+			.accept(ContentType.JSON)
+		.when()
+			.get()
+		.then()
+			.statusCode(HttpStatus.OK.value());
 	}
 
 	@Test
 	public void deveConter4Cozinhas_QuandoConsultarCozinhas() {
-		given().accept(ContentType.JSON).when().get().then().body("", hasSize(4));
+		given()
+			.accept(ContentType.JSON)
+		.when()
+			.get()
+		.then()
+			.body("", hasSize(4));
 	}
-
+	
 	@Test
 	public void testRetornarStatus201_QuandoCadastrarCozinha() {
-		given().body("{ \"nome\": \"Chinesa\" }").contentType(ContentType.JSON).accept(ContentType.JSON).when().post()
-				.then().statusCode(HttpStatus.CREATED.value());
+		given()
+			.body("{ \"nome\": \"Chinesa\" }")
+			.contentType(ContentType.JSON)
+			.accept(ContentType.JSON)
+		.when()
+			.post()
+		.then()
+			.statusCode(HttpStatus.CREATED.value());
 	}
-
+	
 }
